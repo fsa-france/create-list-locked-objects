@@ -97,13 +97,26 @@ for bucket in buckets_with_object_lock:
     print(f"\t- {bucket}")
 
 # Display the list of buckets for selection
-print("\nList of existing buckets:")
-for i, bucket in enumerate(buckets):
-    print(f"\t {i + 1}. {bucket['Name']}")
+#print("\nList of existing buckets:")
+#for i, bucket in enumerate(buckets):
+#    print(f"\t {i + 1}. {bucket['Name']}")
 
 # Prompt the user to select a bucket
-bucket_index = int(input("\nEnter the number of the bucket you want to analyze: ")) - 1
-bucket_name = buckets[bucket_index]['Name']
+#bucket_index = int(input("\nEnter the number of the bucket you want to analyze: ")) - 1
+#bucket_name = buckets[bucket_index]['Name']
+
+# Display the list of buckets with Object Lock for selection
+print("\nList of buckets to create locked objects:")
+if not buckets_with_object_lock:
+    print("\tNone")
+else:
+    for i, bucket_name in enumerate(buckets_with_object_lock):
+        print(f"\t {i + 1}. {bucket_name}")
+
+# Prompt the user to select a bucket
+bucket_index = int(input("\nEnter the number of the bucket with ObjectLock you want to use: ")) - 1
+bucket_name = buckets_with_object_lock[bucket_index]
+print(f"Selected bucket: {bucket_name}")
 
 # List objects in the selected bucket with pagination
 paginator = s3.get_paginator('list_objects_v2')

@@ -82,25 +82,17 @@ def generate_readable_text(size_kb):
 
     return content[:size_kb * 1024]
 
-#def create_objects(bucket_name, retention, num_objects, prefix, start_index):
-#    for i in range(start_index, start_index + num_objects):
-#        object_key = f"{prefix}{i}.txt"
-#
-#        # Generate a random size between 1 and 200 KB
-#        random_size_kb = random.randint(1, 200)
-#
-#        # Generate random readable content
-#        random_content = generate_readable_text(random_size_kb)
-#    
-#        # Put the object
-#        s3.put_object(Bucket=bucket_name, Key=object_key, Body=random_content, ObjectLockMode='GOVERNANCE', ObjectLockRetainUntilDate=retention)
-#        #print(f"Created object {object_key} with retention {retention}")
-#        #print(f"Random text file uploaded to bucket '{bucket_name}' with key '{object_key}' and retention until {retention}")
-#        print(".", end="", flush=True)
-
 def create_object(bucket_name, object_key, retention):
-    # Create a random text file content
-    content = ''.join(random.choices(string.ascii_letters + string.digits, k=1024))
+    # Create a random text file content with random characters
+    #content = ''.join(random.choices(string.ascii_letters + string.digits, k=1024))
+
+    # Generate a random size between 1 KB (smallest) and 1024 KB (largest)
+    random_size_kb = random.randint(1, 1024)
+
+    # Call the function with this random size
+    content = generate_readable_text(random_size_kb)
+    #print(text)
+
     s3.put_object(Bucket=bucket_name, Key=object_key, Body=content, ObjectLockMode='GOVERNANCE', ObjectLockRetainUntilDate=retention)
     print(".", end="", flush=True)
 
@@ -150,7 +142,8 @@ else:
 
 # Prompt the user to select a bucket
 bucket_index = int(input("\nEnter the number of the bucket with ObjectLock you want to use: ")) - 1
-bucket_name = buckets[bucket_index]['Name']
+bucket_name = buckets_with_object_lock[bucket_index]
+print(f"Selected bucket: {bucket_name}")
 
 # Ask for retention date for objects
 retention = input("Specify rétention date using ISO 8601 format (Example: 2024-12-31T00:00:00Z): ")
@@ -177,7 +170,7 @@ start_index = int(start_index)
 with ThreadPoolExecutor() as executor:
     futures = []
     for i in range(start_index, start_index + num_objects):
-        object_key = f"{prefix}{i}"
+        object_key = f"{prefix}{i}"+".txt"
         futures.append(executor.submit(create_object, bucket_name, object_key, retention))
     
     for future in as_completed(futures):
