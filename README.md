@@ -46,16 +46,12 @@ Start the object creation python3 script that will ask which bucket you want to 
 
     % python3 s3-create-locked-objects-parallel.py
     Connexion to S3 endpoint...
-        - AWS_ENDPOINT_URL: 192.168.xx.yy
-        - AWS_ACCESS_KEY_ID: XXXXXXXXXXXX
         - S3 connection successful.
     All Existing buckets list:
         - bucket1-lock
         - bucket2-lock
         - bucket3
-    All buckets with ObjectLock Enabled list:
-        - bucket1-lock
-        - bucket2-lock
+        - bucket4
 
     List of buckets to create locked objects:
         1. bucket1-lock
@@ -77,37 +73,34 @@ Start the object_lock statistic python3 script that will ask which bucket you wa
 
     % python3 s3-list-bucket-locked-objects.py
     S3 connection successful.
-    Existing buckets list:
+    All Existing buckets list:
         - bucket1-lock
         - bucket2-lock
         - bucket3
+        - bucket4
 
-    Buckets with Object Lock enabled:
-        - bucket1-lock
-        - bucket2-lock
-
-    List of buckets with locked objects:
+    All buckets with ObjectLock Enabled list:
         1. bucket1-lock
         2. bucket2-lock
 
     Enter the number of the bucket you want to analyze: 2
     Selected bucket: bucket2-lock
 
-    Total number of objects:                                  111101
-    Total size of objects:                                     10789.71 MB
-    Total number of objects with non-expired lock:            111101
-    Total size of objects with lock:                           10789.71 MB
+    Object Statistics sorted by remaining retention days:
+    Total number of objects:                                       1380
+    Total size of objects:                                       115.70 MB
+    Total number of objects with non-expired lock:                 1380
+    Total size of objects with lock:                             115.70 MB
 
     Object Statistics sorted by remaining retention days:
-        RemainingDays  Count        Size
-    0              -5    100    11351040
-    1              -4  20000  2057929728
-    2              -2  10000  1014203392
-    3               6  10000  1025987584
-    4              11  30901  3188153344
-    5              18   1100     1126400
-    6              23  20000  2067164160
-    7              24   7000   714650624
-    8              27  12000  1233259520
+    RemainingDays  Count      Size
+                0    180  92788736
+                2    500    512000
+                6    150    153600
+               16    200    204800
+               22     50  27356160
+               26    300    307200
+            Total   1380 121322496
+
 
 

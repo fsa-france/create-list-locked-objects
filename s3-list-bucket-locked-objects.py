@@ -88,16 +88,12 @@ for bucket in buckets:
             raise
 
 # Display the list of buckets and those with Object Lock enabled
-print("Existing buckets list:")
+print("All Existing buckets list:")
 for bucket in buckets:
     print(f"\t- {bucket['Name']}")
 
-print("\nBuckets with Object Lock enabled:")
-for bucket in buckets_with_object_lock:
-    print(f"\t- {bucket}")
-
 # Display the list of buckets with Object Lock for selection
-print("\nList of buckets with locked objects:")
+print("\nAll buckets with ObjectLock Enabled list:")
 if not buckets_with_object_lock:
     print("\tNone")
 else:
@@ -105,7 +101,7 @@ else:
         print(f"\t {i + 1}. {bucket_name}")
 
 # Prompt the user to select a bucket
-bucket_index = int(input("\nEnter the number of the bucket with ObjectLock you want to use: ")) - 1
+bucket_index = int(input("\nEnter the number of the bucket with ObjectLock you want to analyze: ")) - 1
 bucket_name = buckets_with_object_lock[bucket_index]
 print(f"Selected bucket: {bucket_name}")
 
@@ -144,11 +140,15 @@ grouped_df = df.groupby('RemainingDays').agg({
     'Size': 'sum'
 }).reset_index().rename(columns={'Key': 'Count'})
 
+# Add a total row
+total_row = pd.DataFrame({'RemainingDays': ['Total'], 'Count': [grouped_df['Count'].sum()], 'Size': [grouped_df['Size'].sum()]})
+grouped_df = pd.concat([grouped_df, total_row], ignore_index=True)
+
 # Display the results with right-aligned numeric values
-print(f"Total number of objects:                       {total_objects:>20}")
+print(f"\nTotal number of objects:                       {total_objects:>20}")
 print(f"Total size of objects:                         {total_size_mb:>20.2f} MB")
 print(f"Total number of objects with non-expired lock: {len(locked_objects):>20}")
 print(f"Total size of objects with lock:               {locked_objects_size_mb:>20.2f} MB")
 
 print(f"\nObject Statistics sorted by remaining retention days:")
-print(grouped_df)
+print(grouped_df.to_string(index=False))

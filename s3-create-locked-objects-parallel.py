@@ -47,8 +47,8 @@ load_dotenv(verbose=True)
 
 print("Connexion to S3 endpoint...")
 
-print(f"\t- AWS_ENDPOINT_URL: {os.getenv('AWS_ENDPOINT_URL')}")
-print(f"\t- AWS_ACCESS_KEY_ID: {os.getenv('AWS_ACCESS_KEY_ID')}")
+#print(f"\t- AWS_ENDPOINT_URL: {os.getenv('AWS_ENDPOINT_URL')}")
+#print(f"\t- AWS_ACCESS_KEY_ID: {os.getenv('AWS_ACCESS_KEY_ID')}")
 
 # Initialize the S3 client with credentials from .env
 s3 = init_s3_client()
@@ -115,14 +115,14 @@ else:
         print(f"\t- {bucket['Name']}")
 
 # Display the list of buckets with Object Lock enabled
-print("All buckets with ObjectLock Enabled list:")
-if not buckets_with_object_lock:
-    print("\t- None")
-    print("Exiting because no bucket with ObjectLock found on the system...")
-    exit()
-else:
-    for bucket_name in buckets_with_object_lock:
-        print(f"\t- {bucket_name}")
+#print("All buckets with ObjectLock Enabled list:")
+#if not buckets_with_object_lock:
+#    print("\t- None")
+#    print("Exiting because no bucket with ObjectLock found on the system...")
+#    exit()
+#else:
+#    for bucket_name in buckets_with_object_lock:
+#        print(f"\t- {bucket_name}")
 
 # Display the list of buckets with Object Lock for selection
 print("\nList of buckets to create locked objects:")
