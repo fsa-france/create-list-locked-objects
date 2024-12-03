@@ -97,7 +97,7 @@ for bucket in buckets_with_object_lock:
     print(f"\t- {bucket}")
 
 # Display the list of buckets with Object Lock for selection
-print("\nList of buckets to create locked objects:")
+print("\nList of buckets with locked objects:")
 if not buckets_with_object_lock:
     print("\tNone")
 else:
