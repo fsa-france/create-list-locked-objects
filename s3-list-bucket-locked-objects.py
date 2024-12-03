@@ -96,15 +96,6 @@ print("\nBuckets with Object Lock enabled:")
 for bucket in buckets_with_object_lock:
     print(f"\t- {bucket}")
 
-# Display the list of buckets for selection
-#print("\nList of existing buckets:")
-#for i, bucket in enumerate(buckets):
-#    print(f"\t {i + 1}. {bucket['Name']}")
-
-# Prompt the user to select a bucket
-#bucket_index = int(input("\nEnter the number of the bucket you want to analyze: ")) - 1
-#bucket_name = buckets[bucket_index]['Name']
-
 # Display the list of buckets with Object Lock for selection
 print("\nList of buckets to create locked objects:")
 if not buckets_with_object_lock:
@@ -161,4 +152,3 @@ print(f"Total size of objects with lock:               {locked_objects_size_mb:>
 
 print(f"\nObject Statistics sorted by remaining retention days:")
 print(grouped_df)
-

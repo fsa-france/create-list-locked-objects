@@ -13,10 +13,6 @@ def init_s3_client():
         access_key_id = os.getenv('AWS_ACCESS_KEY_ID')
         secret_access_key = os.getenv('AWS_SECRET_ACCESS_KEY')
         region = os.getenv('AWS_DEFAULT_REGION')
-        #print(f"S3 Endpoint URL: {s3_endpoint} (type: {type(s3_endpoint)})")
-        #print(f"Access Key ID: {access_key_id} (type: {type(access_key_id)})")
-        #print(f"Secret Access Key: {secret_access_key} (type: {type(secret_access_key)})")
-        #print(f"Region: {region} (type: {type(region)})")
 
         if not isinstance(s3_endpoint, str):
             raise ValueError("AWS_ENDPOINT_URL is not a string")
@@ -32,7 +28,6 @@ def init_s3_client():
             aws_access_key_id=access_key_id,
             aws_secret_access_key=secret_access_key,
         )
-        #print("S3 connector in init_s3_client: ", s3_client)
 
         # Test the connection by listing buckets
         s3_client.list_buckets()
@@ -54,11 +49,9 @@ print("Connexion to S3 endpoint...")
 
 print(f"\t- AWS_ENDPOINT_URL: {os.getenv('AWS_ENDPOINT_URL')}")
 print(f"\t- AWS_ACCESS_KEY_ID: {os.getenv('AWS_ACCESS_KEY_ID')}")
-#print(f"AWS_SECRET_ACCESS_KEY: {os.getenv('AWS_SECRET_ACCESS_KEY')}")
 
 # Initialize the S3 client with credentials from .env
 s3 = init_s3_client()
-#print("S3 connector: ", s3)
 
 def validate_date(date_text):
     try:
@@ -83,7 +76,7 @@ def generate_readable_text(size_kb):
     return content[:size_kb * 1024]
 
 def create_object(bucket_name, object_key, retention):
-    # Create a random text file content with random characters
+    # Create a random text file content with random characters (1KB files)
     #content = ''.join(random.choices(string.ascii_letters + string.digits, k=1024))
 
     # Generate a random size between 1 KB (smallest) and 1024 KB (largest)
@@ -91,7 +84,6 @@ def create_object(bucket_name, object_key, retention):
 
     # Call the function with this random size
     content = generate_readable_text(random_size_kb)
-    #print(text)
 
     s3.put_object(Bucket=bucket_name, Key=object_key, Body=content, ObjectLockMode='GOVERNANCE', ObjectLockRetainUntilDate=retention)
     print(".", end="", flush=True)
