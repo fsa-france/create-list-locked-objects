@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import random
 import string
 from botocore.exceptions import NoCredentialsError, PartialCredentialsError, EndpointConnectionError
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 def init_s3_client():
     try:
