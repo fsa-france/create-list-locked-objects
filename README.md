@@ -102,5 +102,25 @@ Start the object_lock statistic python3 script that will ask which bucket you wa
                26    300    307200
             Total   1380 121322496
 
+### Performances
+
+Scripts are written in standard python3 using AWS boto3 standard module.
+
+
+To list objects, pagination must be used with s3.get_paginator('list_objects_v2') because the maximum number 
+of objects that can be returned in a single page is 1,000. 
+This limit is set by AWS and cannot be increased. 
+If there are more than 1,000 objects in the bucket, the paginator will handle fetching additional pages of results.
+This can induce some time to process buckest with a large number of objects.
+
+Creation of 500.000 random objects of size between 1KB and 1024KB :
+
+    % time python3 s3-create-locked-objects-parallel.py  
+    11303,08s user 1047,34s system 24% cpu 14:16:46,16 total ===> about 3 hours
+
+Here is the results to list 500.000 random size locked objects in a same bucket:
+
+    % time python3 s3-list-bucket-locked-objects.py
+    625,49s user 48,01s system 47% cpu 23:45,67 total ===> about 11 minutes
 
 

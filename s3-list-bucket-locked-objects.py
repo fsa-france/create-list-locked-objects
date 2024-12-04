@@ -6,6 +6,9 @@ import pandas as pd
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from botocore.exceptions import NoCredentialsError, PartialCredentialsError, EndpointConnectionError
 
+# For fast listing techniques, see also:
+# https://github.com/aws-samples/s3-fast-list/
+
 def init_s3_client():
     try:
         s3_client = boto3.client(
