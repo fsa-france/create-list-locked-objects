@@ -50,7 +50,7 @@ def init_s3_client():
 
         # Test the connection by listing buckets
         s3_client.list_buckets()
-        print("\t- S3 connection successful.")
+        #print("\t- S3 connection successful.")
         
         return s3_client
 

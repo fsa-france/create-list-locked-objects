@@ -1,3 +1,10 @@
+#
+# Company : Pure Storage 
+# Date : Nov 2024
+# Author : L. Boschet
+#
+# Purpose : Create random locked (compliance mode) text objects on a given bucket with objec lock enabled
+#
 import boto3
 import os
 from datetime import datetime, timezone

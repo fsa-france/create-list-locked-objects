@@ -1,3 +1,10 @@
+#
+# Company : Pure Storage 
+# Date : Nov 2024
+# Author : L. Boschet
+#
+# Purpose : List locked objects (compliance mode) in a given bucket to get some statistics (remaining date, count, size)
+#
 import boto3
 import os
 from datetime import datetime, timezone
