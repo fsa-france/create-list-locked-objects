@@ -1,3 +1,16 @@
+#
+# Company : Pure Storage 
+# Date : Nov 2024
+# Author : L. Boschet
+#
+# Purpose : List locked objects (compliance mode) in a given bucket to get some statistics
+#    Time, RemainingDays, LockMode, Count, Size
+#
+# Options:
+#   --bucket <bucketname>: specify the bucket to inspect (must have credentials)
+#
+#   --csv : output result in .csv format for further analysis
+#
 import warnings
 import boto3
 import os
@@ -7,7 +20,6 @@ from datetime import datetime, timezone
 from dotenv import load_dotenv
 import pandas as pd
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from botocore.exceptions import NoCredentialsError, PartialCredentialsError, EndpointConnectionError
 from botocore.exceptions import NoCredentialsError, PartialCredentialsError, EndpointConnectionError, ClientError
 
 # Suppress specific warning about Python deprecation
